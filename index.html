@@ -49,7 +49,7 @@
       overflow: hidden;
     }
 
-    /* Sidebar */
+    /* Sidebar (modo desktop) */
     .sidebar {
       background: linear-gradient(180deg,#020617,#020617 40%,#111827);
       border-right: 1px solid var(--border);
@@ -423,35 +423,186 @@
       width: 80px;
     }
 
-    /* Responsive */
+    /* =========================
+       RESPONSIVO: MODO "APP" NO CELULAR
+       ========================= */
+
+    /* Tablets / telas médias e menores */
     @media (max-width: 900px) {
-      .app {
-        grid-template-columns: 1fr;
+      body {
+        padding: 0; /* encosta nas bordas pra ficar mais app */
+        background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
       }
+
+      .app {
+        grid-template-columns: 1fr; /* sidebar não fica mais do lado */
+        max-width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+        position: relative;
+      }
+
+      /* Sidebar vira barra inferior */
       .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: auto;
+        padding: 6px 10px 10px;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        background: rgba(15,23,42,0.96);
+        backdrop-filter: blur(10px);
+        display: flex;
         flex-direction: row;
         align-items: center;
-        overflow-x: auto;
+        justify-content: center;
+        gap: 8px;
+        z-index: 30;
       }
-      .logo, .subtitle, .tag {
-        display: none;
+
+      .logo,
+      .subtitle,
+      .tag {
+        display: none; /* some no mobile */
       }
+
       .nav {
+        margin-top: 0;
         flex-direction: row;
         flex-wrap: nowrap;
-        margin-top: 0;
+        width: 100%;
+        justify-content: space-between;
+        gap: 6px;
+      }
+
+      .nav button {
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+        padding: 6px 4px;
+        font-size: 11px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      .nav button .icon {
+        font-size: 16px;
+      }
+
+      .main {
+        padding: 12px 10px 70px; /* espaço pra barra inferior */
+      }
+
+      .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .kpis {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .kpi {
+        min-width: 180px;
+      }
+
+      .content {
+        padding: 12px;
+        min-height: auto;
+      }
+
+      form {
+        grid-template-columns: 1fr 1fr;
+        padding: 10px;
+        gap: 8px 10px;
+      }
+
+      .table-wrapper {
+        max-height: 230px;
       }
     }
 
+    /* Celulares em pé / telas pequenas */
     @media (max-width: 640px) {
-      .kpis {
-        grid-template-columns: 1fr;
+      .main {
+        padding: 10px 8px 72px;
       }
+
       .content {
         padding: 10px;
       }
+
       form {
+        grid-template-columns: 1fr;
         padding: 10px;
+      }
+
+      .kpi {
+        padding: 10px 12px;
+      }
+
+      .kpi-value {
+        font-size: 18px;
+      }
+
+      table {
+        font-size: 11px;
+        min-width: 540px; /* força rolagem horizontal em vez de apertar tudo */
+      }
+
+      th, td {
+        padding: 6px 8px;
+      }
+
+      .btn {
+        font-size: 12px;
+        padding: 7px 12px;
+      }
+
+      .items-uso {
+        max-height: 150px;
+        font-size: 11px;
+      }
+
+      .items-uso-row {
+        grid-template-columns: 1fr auto auto;
+        gap: 4px;
+      }
+
+      .items-uso-input {
+        width: 70px;
+      }
+    }
+
+    /* Celulares muito pequenos (tipo 320px) */
+    @media (max-width: 420px) {
+      .items-uso-row {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 4px;
+      }
+
+      .items-uso-input {
+        width: 100%;
+      }
+
+      .nav button {
+        padding: 5px 3px;
+        font-size: 10px;
+      }
+
+      .main-header h1 {
+        font-size: 18px;
+      }
+
+      .section-title {
+        font-size: 16px;
       }
     }
   </style>
@@ -486,7 +637,6 @@
       <header class="main-header">
         <div>
           <h1>Visão Geral</h1>
-         
         </div>
         <div class="kpis">
           <div class="kpi">
